@@ -3,6 +3,7 @@
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\V1\AlbumController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 
@@ -54,4 +55,13 @@ Route::post('logout', [LoginController::class,'logout']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+//Api resourse
+
+
+
+
+Route::prefix('v1')->group(function(){
+    Route::apiResource('album',AlbumController::class);
 });
