@@ -6,6 +6,7 @@ use App\Models\Album;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAlbumRequest;
 use App\Http\Requests\UpdateAlbumRequest;
+use App\Http\Resources\V1\AlbumResource;
 
 class AlbumController extends Controller
 {
@@ -16,7 +17,7 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        return Album::all();
+        return AlbumResource::collection(Album::paginate());
     }
 
     /**
@@ -28,7 +29,7 @@ class AlbumController extends Controller
     public function store(StoreAlbumRequest $request)
     {
         $album = Album::create($request->all());
-        return $album;
+        return new AlbumResource($album);
     }
 
     /**
@@ -39,7 +40,7 @@ class AlbumController extends Controller
      */
     public function show(Album $album)
     {
-        return $album;
+        return new AlbumResource($album);
     }
 
     /**
@@ -52,7 +53,7 @@ class AlbumController extends Controller
     public function update(UpdateAlbumRequest $request, Album $album)
     {
         $album->update($request->all());
-        return $album;
+        return new AlbumResource($album);
     }
 
     /**
